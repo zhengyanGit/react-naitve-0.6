@@ -2,7 +2,7 @@
  * @Author: zy 
  * @Date: 2020-04-12 14:07:14 
  * @Last Modified by: zy
- * @Last Modified time: 2020-04-12 17:06:38
+ * @Last Modified time: 2020-04-12 18:16:01
  */
 
 import React, { Component } from 'react';
@@ -13,6 +13,7 @@ import {
   Button
 } from 'react-native';
 import { Home } from '../../config/value-const';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 
@@ -29,8 +30,8 @@ export class HomePage extends Component {
           title="Go to Details"
           onPress={() => this.props.navigation.navigate('Details')}
         />
+        <Ionicons name="egg-outline" />
       </View>
-
     </View >
     )
   }

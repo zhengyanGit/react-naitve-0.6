@@ -2,7 +2,7 @@
  * @Author: zy 
  * @Date: 2020-04-12 17:05:38 
  * @Last Modified by: zy
- * @Last Modified time: 2020-04-12 17:23:31
+ * @Last Modified time: 2020-04-12 18:07:35
  */
 
 import React from 'react';
@@ -10,7 +10,7 @@ import {
   Text,
   View
 } from 'react-native';
-//import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 export default class IconWithBadge extends React.Component {
@@ -19,7 +19,7 @@ export default class IconWithBadge extends React.Component {
     console.log('this.props', this.props)
     return (
       <View style={{ width: 24, height: 24, margin: 5 }}>
-        {/* <Ionicons name='at-outline' size={size} color={color} /> */}
+        <Ionicons name='egg-outline' size={size} color={color} />
         {badgeCount > 0 && (
           <View
             style={{
