@@ -2,24 +2,20 @@
  * @Author: zy 
  * @Date: 2020-04-12 17:05:38 
  * @Last Modified by: zy
- * @Last Modified time: 2020-04-12 18:07:35
+ * @Last Modified time: 2020-06-10 20:26:43
  */
 
 import React from 'react';
-import {
-  Text,
-  View
-} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Text, View } from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 
 export default class IconWithBadge extends React.Component {
   render () {
     const { name, badgeCount, color, size } = this.props;
-    console.log('this.props', this.props)
     return (
       <View style={{ width: 24, height: 24, margin: 5 }}>
-        <Ionicons name='egg-outline' size={size} color={color} />
+        <AntDesign name={name} size={size} color={color} />
         {badgeCount > 0 && (
           <View
             style={{

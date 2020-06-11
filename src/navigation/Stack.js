@@ -2,24 +2,13 @@
  * @Author: zy
  * @Date: 2020-04-12 15:47:17
  * @Last Modified by: zy
- * @Last Modified time: 2020-04-12 16:17:54
+ * @Last Modified time: 2020-06-11 13:02:10
  */
 
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+//Stack 页面
+import { LoginPage } from '../views/single/LoginPage';
+import { SetPasswrodPage } from '../views/single/SetPasswrodPage';
 
-import { HomePage } from '../../src/views/home/HomePage';
-import { DetailsPage } from '../../src/views/home/DetailsPage';
+const StackPage = { LoginPage, SetPasswrodPage }
 
-const AppNavigator = createStackNavigator({
-  Home: {
-    screen: HomePage,
-  },
-  Details: {
-    screen: DetailsPage,
-  },
-}, {
-    initialRouteName: 'Home',
-  });
-
-export default createAppContainer(AppNavigator);
+export default StackPage;

@@ -2,26 +2,40 @@
  * @Author: zy
  * @Date: 2020-04-12 14:41:58
  * @Last Modified by: zy
- * @Last Modified time: 2020-04-12 18:03:12
+ * @Last Modified time: 2020-06-11 13:27:03
  */
 import React, { Component } from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { HomePage } from '../../src/views/home/HomePage';
+import { ListPage } from '../../src/views/home/ListPage';
 import { DetailsPage } from '../../src/views/home/DetailsPage';
-import { OrderIndexPage } from '../../src/views/order/index';
+
+
+import { OrderIndexPage } from '../views/order/OrderIndexPage';
+import { OrderPage } from '../views/order/OrderPage';
+
 import { UserIndexPage } from '../../src/views/user/index';
-import { PriceIndexPage } from '../../src/views/price/index';
+import { ServerPage } from '../../src/views/server/index';
 
 import IconWithBadge from '../components/ui/IconCpt';
 
+import StackPage from './Stack';
+
+
 
 const HomeStack = createStackNavigator({
-  Home: { screen: HomePage },
-  Details: { screen: DetailsPage },
+  HomePage: { screen: HomePage },
+  DetailsPage: { screen: DetailsPage },
+  ListPage: { screen: ListPage },
+  ...StackPage
+});
+
+const OrderStack = createStackNavigator({
+  OrderIndexPage: { screen: OrderIndexPage },
+  OrderPage: { screen: OrderPage },
 });
 
 
@@ -29,29 +43,57 @@ const HomeStack = createStackNavigator({
 
 
 const HomeIconWithBadge = props => {
-  return <IconWithBadge {...props} badgeCount={3} />;
+  return <IconWithBadge {...props} />;
 };
 
 const TabNavigator = createBottomTabNavigator({
-  Home: HomeStack,
-  Order: OrderIndexPage,
-  User: UserIndexPage,
-  Price: PriceIndexPage
+  Home: {
+    screen: HomeStack,
+    navigationOptions: {
+      tabBarLabel: '首页',
+    }
+  },
+  Order: {
+    screen: OrderStack,
+    navigationOptions: {
+      tabBarLabel: '店铺',
+    }
+  },
+  Server: {
+    screen: ServerPage,
+    navigationOptions: {
+      tabBarLabel: '服务',
+    }
+  },
+  User: {
+    screen: UserIndexPage,
+    navigationOptions: {
+      tabBarLabel: '我的',
+    }
+  }
 }, {
+    tabBarPosition: 'bottom',
+    swipeEnabled: true,
+    animationEnabled: true,
+    initialRouteName: 'Home',
     defaultNavigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, horizontal, tintColor }) => {
         const { routeName } = navigation.state;
-        let IconComponent = Ionicons;
+        //console.log('routeName', routeName, horizontal, tintColor)
+        let IconComponent = null;
         let iconName;
         if (routeName === 'Home') {
           iconName = focused
-            ? 'home-outline'
-            : 'home-outline';
-          IconComponent = HomeIconWithBadge;
+            ? 'home'
+            : 'home';
+        } else if (routeName === 'Order') {
+          iconName = focused ? 'isv' : 'isv';
+        } else if (routeName === 'User') {
+          iconName = focused ? 'user' : 'user';
         } else {
-          iconName = focused ? 'home-outline' : 'home-outline';
+          iconName = focused ? 'codesquareo' : 'codesquareo';
         }
-
+        IconComponent = HomeIconWithBadge;
         // You can return any component that you like here!
         return <IconComponent name={iconName} size={25} color={tintColor} />;
       },
@@ -59,6 +101,9 @@ const TabNavigator = createBottomTabNavigator({
     tabBarOptions: {
       activeTintColor: 'tomato',
       inactiveTintColor: 'gray',
+      labelStyle: {
+        fontSize: 13,
+      },
     },
   });
 

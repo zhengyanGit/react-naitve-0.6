@@ -2,42 +2,26 @@
  * @Author: zy 
  * @Date: 2020-04-12 14:07:14 
  * @Last Modified by: zy
- * @Last Modified time: 2020-06-11 11:26:41
+ * @Last Modified time: 2020-06-11 09:34:37
  */
 
 import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  View,
-  Button
+  View
 } from 'react-native';
 import { Home } from '../../config/value-const';
 
 
-
-export class HomePage extends Component {
-
-
-
+export class OrderPage extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
   render () {
     return (<View style={styles.body}>
-      <Text style={styles.text}>Home</Text>
-      <View style={styles.row}>
-        <Button
-          title="跳首页详情"
-          onPress={() => this.props.navigation.navigate('DetailsPage')}
-        />
-        <Button
-          title="跳登入"
-          onPress={() => this.props.navigation.navigate('LoginPage')}
-        />
-        {/* <Ionicons name="egg-outline" /> */}
-      </View>
+      <Text style={styles.text}>店铺一</Text>
     </View >
     )
   }
