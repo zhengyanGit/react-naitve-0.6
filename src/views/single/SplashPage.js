@@ -2,7 +2,7 @@
  * @Author: zy 
  * @Date: 2020-04-12 14:07:14 
  * @Last Modified by: zy
- * @Last Modified time: 2020-06-11 13:14:37
+ * @Last Modified time: 2020-06-11 13:55:35
  */
 
 import React, { Component } from 'react';
@@ -15,7 +15,8 @@ import {
 } from 'react-native';
 import { Home } from '../../config/value-const';
 import Icon from 'react-native-vector-icons/AntDesign';
-
+import { styleObj } from '../../basic/css/theme'
+console.log('styleObj', styleObj)
 
 export class SplashPage extends Component {
 
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#0087FF'
+    //backgroundColor: styleObj.color.themeColor
   },
   info: {
     alignItems: 'center',
