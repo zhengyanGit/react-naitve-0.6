@@ -10,6 +10,6 @@ export default {
   },
   defaultNavigationOptions: null,
   animationEnabled: false,
-  mode: 'modal',
+  mode: 'card',
   headerMode: 'screen'
 }

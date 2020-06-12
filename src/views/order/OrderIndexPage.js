@@ -2,7 +2,7 @@
  * @Author: zy 
  * @Date: 2020-04-12 14:07:14 
  * @Last Modified by: zy
- * @Last Modified time: 2020-06-11 11:26:48
+ * @Last Modified time: 2020-06-12 15:56:59
  */
 
 import React, { Component } from 'react';
@@ -16,7 +16,7 @@ import {
 
 export class OrderIndexPage extends Component {
   static navigationOptions = {
-    header: null
+    headerShown: false
   }
   constructor(props) {
     super(props);

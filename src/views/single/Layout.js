@@ -6,8 +6,8 @@ import NavigationService from '../../navigation/navigationSeevice'
 export default class Layout extends Component {
 
   static navigationOptions = {
-    header: null,
-    gesturesEnabled: false //禁止侧滑返回事件
+    headerShown: false,
+    gestureEnabled: false
   }
 
   componentDidMount () {

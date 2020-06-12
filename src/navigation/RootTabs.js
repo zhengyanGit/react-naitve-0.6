@@ -2,7 +2,7 @@
  * @Author: zy
  * @Date: 2020-04-12 14:41:58
  * @Last Modified by: zy
- * @Last Modified time: 2020-06-12 12:57:35
+ * @Last Modified time: 2020-06-12 15:58:22
  */
 import React from 'react';
 import { createAppContainer } from 'react-navigation';
@@ -62,7 +62,7 @@ const TabNavigator = createBottomTabNavigator({
     animationEnabled: false,
     initialRouteName: 'Home',
     // defaultNavigationOptions: ({ navigation }) => ({
-    //  gesturesEnabled:false, // 关闭手势
+    //  gestureEnabled:false, // 关闭手势
     //  gesturesResponseDistance:100,// 距离
     //   tabBarIcon: ({ focused, horizontal, tintColor }) => {
     //     const { routeName } = navigation.state;

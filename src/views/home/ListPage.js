@@ -2,7 +2,7 @@
  * @Author: zy 
  * @Date: 2020-04-12 14:07:14 
  * @Last Modified by: zy
- * @Last Modified time: 2020-06-11 20:04:22
+ * @Last Modified time: 2020-06-12 16:30:42
  */
 
 import React, { Component } from 'react';
@@ -13,19 +13,9 @@ import {
   FlatList,
   ActivityIndicator
 } from 'react-native';
-import { Home } from '../../config/value-const';
 import { ListItem } from 'react-native-elements';
-import { styleData } from '../../basic/css/theme'
-
-
-
-const LISTDATA = [
-  {
-    name: 'Amy Farha',
-    avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-    subtitle: 'Vice President'
-  }
-]
+import { styleData } from '../../basic/css/theme';
+import NavigationService from '../../navigation/navigationSeevice'
 
 
 export class ListPage extends Component {
@@ -38,25 +28,53 @@ export class ListPage extends Component {
     this.parmas = {
       pageNo: 1
     }
+    this.listNum = 15;
+  }
+
+  UNSAFE_componentWillMount () {
+    this._getData();
+  }
+
+  //数据生成
+  _listData = () => {
+    let { pageNo } = this.parmas;
+    let lsArr = [];
+    let num = (pageNo - 1) * this.listNum;
+    for (let i = num; i < num + this.listNum; i++) {
+      lsArr.push({
+        name: 'Amy Farha',
+        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+        subtitle: 'Vice President',
+        num: i
+      });
+    }
+    return lsArr;
   }
 
   //获取数据
-  _getData = async () => {
+  _getData = async (refresh) => {
+    let data = this._listData();
     this.setState({
-      listData: LISTDATA
+      listData: refresh ? data : this.state.listData.concat(data)
     })
   }
 
-  //
+  //一条数据模版
   _renderItemView = (data, index) => {
-    console.log('data-1223', data)
-    let { name, avatar_url, subtitle } = data.item || {};
+    let { name, avatar_url, subtitle, num } = data.item || {};
     return <ListItem
       key={index}
       leftAvatar={{ source: { uri: avatar_url } }}
-      title={name}
+      title={name + '-' + num}
       subtitle={subtitle}
+      style={{ marginBottom: 5 }}
+      onPress={() => { this._onBackdropPress(data.item) }}
     />
+  }
+
+  //跳详情页
+  _onBackdropPress = (itemData) => {
+    NavigationService.navigate('DetailsPage', { itemData })
   }
 
   // 下拉更新函数
@@ -67,10 +85,8 @@ export class ListPage extends Component {
 
   // 上拉加载
   _onEndReached = async () => {
-    if (this.parmas.pageNo < this.parmas.totalPage) {
-      this.parmas.pageNo++;
-      this._getData();
-    }
+    this.parmas.pageNo++;
+    this._getData();
   }
 
 

@@ -2,7 +2,7 @@
  * @Author: zy 
  * @Date: 2020-04-12 14:07:14 
  * @Last Modified by: zy
- * @Last Modified time: 2020-06-12 13:32:46
+ * @Last Modified time: 2020-06-12 15:58:03
  */
 
 import React, { Component } from 'react';
@@ -21,7 +21,7 @@ import storageUtil from '../../utils/storageUtil';
 export class LoginPage extends Component {
   static navigationOptions = {
     headerShown: false,
-    gesturesEnabled: false
+    gestureEnabled: false
   }
   constructor(props) {
     super(props);
