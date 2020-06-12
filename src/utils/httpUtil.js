@@ -19,12 +19,7 @@
  *      2. 如果需要传递自己的config, 对象中rejectError和handleError都必须传递，否则按照undefinde == false 来处理逻辑
  *      3. 绝大多数情况使用默认的config
  */
-
-import { STORAGE_CONSTANT } from '../config/storage';
-import StorageHelper from './storageHelper';
-import { GLOBAL } from '../config/global';
-import { URL } from './helper';
-import ToastUtil from './toast';
+import ToastUtil from './toastUtil';
 import { StackActions, NavigationActions } from 'react-navigation';
 
 const resetAction = StackActions.reset({
@@ -43,7 +38,7 @@ class HTTP {
 
   toastDeadline;
   GET (url, params = {}, config, timeout) {
-    return this.request(URL.getUrl(url, params), 'GET', {}, config, null, timeout)
+    return this.request(this.getUrl(url, params), 'GET', {}, config, null, timeout)
   }
 
   POST (url, params = {}, config, timeout) {
@@ -57,28 +52,18 @@ class HTTP {
       this.fetchPromise(url, method, params, config, reqStartTime, headers)
     ]).catch(err => {
       console.warn('******Request Reject Error:', url, method, err)
-      if (err == 'timeout') {
-        this.checkToastAvailable(reqStartTime) && ToastUtil.showError('网络请求超时啦!');
-      } else {
-        this.checkToastAvailable(reqStartTime) && ToastUtil.showError('网络开小差啦!');
-      }
+      ToastUtil.showError('网络开小差啦!');
     })
   }
 
   async fetchPromise (url, method, params, config, reqStartTime, headers) {
-    let APP_HOT_VERSION = await StorageHelper.get(STORAGE_CONSTANT.APP_HOT_VERSION);
     return new Promise((resolve, reject) => {
       let requestData = {
         method: method,
         headers: headers || {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'authToken': GLOBAL.TOKEN || '',
-          'version': GLOBAL.VERSION,
-          'platform': GLOBAL.PLATFORM_OS,
-          'versionCode': GLOBAL.VERSION_CODE,
-          'extVersionCode': APP_HOT_VERSION || '',
-          'loginName': GLOBAL.LOGIN_NAME || ''
+          //'authToken': GLOBAL.TOKEN || '',
         },
         body: headers ? params : method == 'POST' ? (params ? JSON.stringify(params) : JSON.stringify({})) : null
       }
@@ -93,18 +78,16 @@ class HTTP {
           let error = body.error || {};
           if (error.code == '06') {
             //登录失效
-            await this.clearLoginStatus();
-            if (this.checkToastAvailable(reqStartTime)) {
-              ToastUtil.showInfo('登录失效啦，请重新登录!');
-              this.toastDeadline = Date.now();// 记录登录失效跳转时间
-              setTimeout(() => {
-                GLOBAL.ROOT_NAVIGATION.dispatch(resetAction);
-              }, 800)
-            }
+            ToastUtil.showInfo('登录失效啦，请重新登录!');
+            this.toastDeadline = Date.now();// 记录登录失效跳转时间
+            setTimeout(() => {
+              //跳登入
+              //GLOBAL.ROOT_NAVIGATION.dispatch(resetAction);
+            }, 800)
           } else {
             if (config.handerError) {
               //统一处理错误信息
-              this.checkToastAvailable(reqStartTime) && ToastUtil.showError(error.msg || '请求出错啦！');
+              ToastUtil.showError(error.msg || '请求出错啦！');
               console.warn('******Request Error:', url, method, error);
             }
             if (config.rejectError) {
@@ -130,13 +113,19 @@ class HTTP {
     })
   }
 
-  async clearLoginStatus () {
-    GLOBAL.TOKEN = null;
-    await StorageHelper.remove(STORAGE_CONSTANT.TOKEN)
-  }
+  getUrl (base_url, params) {
+    var result = base_url,
+      query_array = [];
 
-  checkToastAvailable (startTime) {
-    return !this.toastDeadline || startTime > this.toastDeadline
+    for (var key in params) {
+      query_array.push(key + "=" + params[key]);
+    }
+
+    if (query_array.length > 0) {
+      result = result + "?" + query_array.join('&');
+    }
+
+    return result;
   }
 
 }

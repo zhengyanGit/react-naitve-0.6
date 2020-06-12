@@ -1,12 +1,12 @@
 /*
  * @Author: zy 
  * @Date: 2020-04-12 13:46:05 
- * @Last Modified by:   zy 
- * @Last Modified time: 2020-04-12 13:46:05 
+ * @Last Modified by: zy
+ * @Last Modified time: 2020-06-11 19:37:55
  */
 
 import Toast from 'react-native-root-toast';
-import COLORS from '../theme/colors';
+import { styleData } from '../basic/css/theme';
 
 class ToastUtil {
 
@@ -18,17 +18,17 @@ class ToastUtil {
 
   //警告类 字段校验类
   showWarning (msg, time) {
-    return this._show(msg, COLORS.warningColor, COLORS.warningColor, null, time || 800);
+    return this._show(msg, styleData.toast.warningColor, styleData.toast.warningColor, null, time || 800);
   }
 
   //操作成功提示类
   showSuccess (msg) {
-    return this._show(msg, COLORS.successColor, COLORS.successColor, null, 800, 150);
+    return this._show(msg, styleData.toast.successColor, styleData.toast.successColor, null, 800, 150);
   }
 
   //请求返回字段出错，请求出错类
   showError (msg) {
-    return this._show(msg, COLORS.errorColor, COLORS.errorColor, null, 1200, -150);
+    return this._show(msg, styleData.toast.errorColor, styleData.toast.errorColor, null, 1200, -150);
   }
 
   _show (msg, backgroundColor, shadowColor, textColor, duration, position, delay = 0, opacity = 0.95) {

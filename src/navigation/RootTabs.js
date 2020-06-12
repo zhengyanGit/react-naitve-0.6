@@ -2,63 +2,95 @@
  * @Author: zy
  * @Date: 2020-04-12 14:41:58
  * @Last Modified by: zy
- * @Last Modified time: 2020-04-12 18:03:12
+ * @Last Modified time: 2020-06-12 12:57:35
  */
-import React, { Component } from 'react';
+import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
-import { HomePage } from '../../src/views/home/HomePage';
-import { DetailsPage } from '../../src/views/home/DetailsPage';
-import { OrderIndexPage } from '../../src/views/order/index';
-import { UserIndexPage } from '../../src/views/user/index';
-import { PriceIndexPage } from '../../src/views/price/index';
-
+import defaultStack from './defaultStack';
 import IconWithBadge from '../components/ui/IconCpt';
-
-
-const HomeStack = createStackNavigator({
-  Home: { screen: HomePage },
-  Details: { screen: DetailsPage },
-});
-
-
-
+import HomeStack from './HomeStack';
+import OrderStack from './OrderStack';
+import ServerStack from './ServerStack';
+import UserStack from './UserStack';
+import { styleData } from '../basic/css/theme'
 
 
 const HomeIconWithBadge = props => {
-  return <IconWithBadge {...props} badgeCount={3} />;
+  return <IconWithBadge {...props} />;
 };
 
-const TabNavigator = createBottomTabNavigator({
-  Home: HomeStack,
-  Order: OrderIndexPage,
-  User: UserIndexPage,
-  Price: PriceIndexPage
-}, {
-    defaultNavigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused, horizontal, tintColor }) => {
-        const { routeName } = navigation.state;
-        let IconComponent = Ionicons;
-        let iconName;
-        if (routeName === 'Home') {
-          iconName = focused
-            ? 'home-outline'
-            : 'home-outline';
-          IconComponent = HomeIconWithBadge;
-        } else {
-          iconName = focused ? 'home-outline' : 'home-outline';
-        }
 
-        // You can return any component that you like here!
-        return <IconComponent name={iconName} size={25} color={tintColor} />;
-      },
-    }),
+class TabItem {
+  constructor(page) {
+    this.page = page;
+  }
+  getStack () {
+    return createStackNavigator({ ...this.page }, { ...defaultStack });
+  }
+}
+
+const TabNavigator = createBottomTabNavigator({
+  Home: {
+    screen: new TabItem(HomeStack).getStack(),
+    navigationOptions: {
+      tabBarLabel: '首页',
+    }
+  },
+  Order: {
+    screen: new TabItem(OrderStack).getStack(),
+    navigationOptions: {
+      tabBarLabel: '店铺',
+    }
+  },
+  Server: {
+    screen: new TabItem(ServerStack).getStack(),
+    navigationOptions: {
+      tabBarLabel: '服务',
+    }
+  },
+  User: {
+    screen: new TabItem(UserStack).getStack(),
+    navigationOptions: {
+      tabBarLabel: '我的',
+    }
+  }
+}, {
+    tabBarPosition: 'bottom',
+    swipeEnabled: true,
+    animationEnabled: false,
+    initialRouteName: 'Home',
+    // defaultNavigationOptions: ({ navigation }) => ({
+    //  gesturesEnabled:false, // 关闭手势
+    //  gesturesResponseDistance:100,// 距离
+    //   tabBarIcon: ({ focused, horizontal, tintColor }) => {
+    //     const { routeName } = navigation.state;
+    //     //console.log('routeName', routeName, horizontal, tintColor)
+    //     let IconComponent = null;
+    //     let iconName;
+    //     if (routeName === 'Home') {
+    //       iconName = focused
+    //         ? 'home'
+    //         : 'home';
+    //     } else if (routeName === 'Order') {
+    //       iconName = focused ? 'isv' : 'isv';
+    //     } else if (routeName === 'User') {
+    //       iconName = focused ? 'user' : 'user';
+    //     } else {
+    //       iconName = focused ? 'codesquareo' : 'codesquareo';
+    //     }
+    //     IconComponent = HomeIconWithBadge;
+    //     // You can return any component that you like here!
+    //     return <IconComponent name={iconName} size={25} color={tintColor} />;
+    //   },
+    // }),
     tabBarOptions: {
-      activeTintColor: 'tomato',
+      activeTintColor: styleData.color.themeColor,
       inactiveTintColor: 'gray',
+      labelStyle: {
+        fontSize: 13,
+      },
     },
   });
 

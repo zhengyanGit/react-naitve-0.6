@@ -2,7 +2,7 @@
  * @Author: zy 
  * @Date: 2020-04-12 14:07:14 
  * @Last Modified by: zy
- * @Last Modified time: 2020-04-12 16:47:05
+ * @Last Modified time: 2020-06-11 09:34:37
  */
 
 import React, { Component } from 'react';
@@ -11,17 +11,17 @@ import {
   Text,
   View
 } from 'react-native';
-import { Home } from '../../config/value-const'
+import { Home } from '../../config/value-const';
 
 
-export class PriceIndexPage extends Component {
+export class OrderPage extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
   render () {
     return (<View style={styles.body}>
-      <Text style={styles.text}>price</Text>
+      <Text style={styles.text}>店铺一</Text>
     </View >
     )
   }
