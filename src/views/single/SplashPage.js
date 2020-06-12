@@ -2,7 +2,7 @@
  * @Author: zy 
  * @Date: 2020-04-12 14:07:14 
  * @Last Modified by: zy
- * @Last Modified time: 2020-06-12 15:58:03
+ * @Last Modified time: 2020-06-12 17:35:12
  */
 
 import React, { Component } from 'react';
@@ -14,7 +14,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { Home } from '../../config/value-const';
-//import Icon from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/AntDesign';
 import { styleData } from '../../basic/css/theme'
 import { Button } from 'react-native-elements';
 
@@ -31,7 +31,7 @@ export class SplashPage extends Component {
   render () {
     return (<SafeAreaView style={styles.body}>
       <View style={styles.info}>
-        {/* <Icon name="earth" style={{ fontSize: 100, color: '#fff' }} /> */}
+        <Icon name="earth" style={{ fontSize: 100, color: '#fff' }} />
         <TouchableOpacity onPress={() => this.props.navigation.navigate('LoginPage')}>
           <Text style={styles.text} >中石油</Text>
         </TouchableOpacity>

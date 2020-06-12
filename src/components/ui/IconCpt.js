@@ -2,12 +2,12 @@
  * @Author: zy 
  * @Date: 2020-04-12 17:05:38 
  * @Last Modified by: zy
- * @Last Modified time: 2020-06-11 15:49:16
+ * @Last Modified time: 2020-06-12 17:39:52
  */
 
 import React from 'react';
 import { Text, View } from 'react-native';
-//import AntDesign from 'react-native-vector-icons/AntDesign';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 
 export default class IconWithBadge extends React.Component {
